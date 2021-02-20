@@ -1,0 +1,25 @@
+<div id='shot-form'>
+  <%= form_for(@game, remote: true, authenticity_token: true, html: { class: 'form-inline'}) do |f| %>
+    <%= f.fields_for :shots, @shot do |shot| %>
+      <% if @shot.errors.any? %>
+        <%= error_messages(@shot.errors.full_messages) %>
+      <% end %>
+      <%= shot.hidden_field :player, value: session[:player] %>
+      <%= shot.hidden_field :frame, value: session[:frame] %>
+      <%= shot.hidden_field :number, value: session[:shot_number] %>
+      <div class='row'>
+        <div class='col-md-6'>
+          <div class="field form-group">
+            <%= shot.label :pins, "Score:", class: 'sr-only' %>
+            <%= shot.number_field :pins, class: 'form-control form-control', placeholder: 'Pins down' %>
+          </div>
+        </div>
+        <div class="col-md-6 text-right">
+          <%= f.submit "Shot", class: 'btn btn-info' %>
+        </div>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>
+

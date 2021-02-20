@@ -1,0 +1,42 @@
+<div class='table-responsive'>
+  <table class='table table-hover'>
+    <thead class="thead-dark">
+      <tr>
+        <th>Frame</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+        <th>10</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @scoreboard.scoreboard.each_with_index do |row, i| %>
+        <tr>
+          <th>
+            <div>Player: <%= i+1 %></div>
+            <div>Shot 1</div>
+            <div>Shot 2</div>
+          </th>
+        <% row[1..10].each do |cell| %>
+          <td>
+            <b><%= strike_spare_total_format(@scoreboard.total_for_frame(cell), @scoreboard.first_shot(cell)) %></b>
+            <div><%= @scoreboard.first_shot(cell) %></div>
+            <div><%= @scoreboard.second_shot(cell) %></div>
+            <div><%= @scoreboard.third_shot(cell) %></div>
+          </td>
+        <% end %>
+        <td>
+          <%= @scoreboard.grand_total(row) %>
+        </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
